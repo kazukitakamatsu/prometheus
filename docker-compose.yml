@@ -11,9 +11,9 @@ networks:
 services:
 
   prometheus:
-    image: prom/prometheus:v2.1.0
+    build:
+      context: ./prometheus
     volumes:
-      - ./prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -57,11 +57,11 @@ services:
       mode: global
 
   alertmanager:
+    build:
+      context: ./alertmanager
     image: prom/alertmanager
     ports:
       - 9093:9093
-    volumes:
-      - ./alertmanager/:/etc/alertmanager/
     networks:
       - back-tier
     restart: always
@@ -88,7 +88,8 @@ services:
       mode: global
 
   grafana:
-    image: grafana/grafana
+    build:
+      context: ./grafana
     user: "472"
     depends_on:
       - prometheus
@@ -96,7 +97,6 @@ services:
       - 3000:3000
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning/:/etc/grafana/provisioning/
     env_file:
       - ./grafana/config.monitoring
     networks:
