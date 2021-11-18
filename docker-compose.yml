@@ -56,12 +56,6 @@ services:
     deploy:
       mode: global
 
-  dcgm_exporter:
-    image: nvidia/dcgm-exporter
-    ports:
-      - 9400:9400
-    runtime: nvidia
-
   alertmanager:
     build:
       context: ./alertmanager
