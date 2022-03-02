@@ -56,18 +56,18 @@ services:
     deploy:
       mode: global
 
-  # alertmanager:
-  #   build:
-  #     context: ./alertmanager
-  #   image: prom/alertmanager
-  #   ports:
-  #     - 9093:9093
-  #   networks:
-  #     - back-tier
-  #   restart: always
-  #   command:
-  #     - '--config.file=/etc/alertmanager/config.yml'
-  #     - '--storage.path=/alertmanager'
+  alertmanager:
+    build:
+      context: ./alertmanager
+    image: prom/alertmanager
+    ports:
+      - 9093:9093
+    networks:
+      - back-tier
+    restart: always
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
 #    deploy:
 #      placement:
 #        constraints:
